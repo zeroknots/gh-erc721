@@ -2,6 +2,11 @@ pragma solidity ^0.8.13;
 
 import "./GithubPFP.sol";
 
+interface IGithubPFPFactory {
+    event NewGithubPFP(address indexed owner, address indexed githubPFP);
+    function createGithubPFP(string calldata baseURI, string calldata name, string calldata symbol) external returns (address);
+}
+
 
 contract GithubPFPFactory {
     event NewGithubPFP(address indexed owner, address indexed githubPFP);

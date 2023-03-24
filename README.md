@@ -1,44 +1,36 @@
 <img align="right" width="150" height="150" top="100" src="./public/readme.jpg">
 
-# femplate • [![tests](https://github.com/zeroknots/femplate/actions/workflows/ci.yml/badge.svg?label=tests)](https://github.com/zeroknots/femplate/actions/workflows/ci.yml) ![license](https://img.shields.io/github/license/zeroknots/femplate?label=license) ![solidity](https://img.shields.io/badge/solidity-^0.8.17-lightgrey)
+# GH ERC721  ![license](https://img.shields.io/github/license/zeroknots/femplate?label=license) ![solidity](https://img.shields.io/badge/solidity-^0.8.17-lightgrey)
 
-Template for Foundry Projects.
+Mint ERC721 PFPs and host them on your GH
 
-### Usage
+## Usage
 
-**Building & Testing**
+**Factory**
 
-Build the foundry project with `forge build`. Then you can run tests with `forge test`.
+Factory deployed @ 0x000
 
-**Deployment & Verification**
+call `createGithubPFP`
 
-Inside the [`utils/`](./utils/) directory are a few preconfigured scripts that can be used to deploy and verify contracts.
-
-Scripts take inputs from the cli, using silent mode to hide any sensitive information.
-
-_NOTE: These scripts are required to be _executable_ meaning they must be made executable by running `chmod +x ./utils/*`._
-
-_NOTE: these scripts will prompt you for the contract name and deployed addresses (when verifying). Also, they use the `-i` flag on `forge` to ask for your private key for deployment. This uses silent mode which keeps your private key from being printed to the console (and visible in logs)._
-
-
-### I'm new, how do I get started?
-
-We created a guide to get you started with: [GETTING_STARTED.md](./GETTING_STARTED.md).
-
-
-### Blueprint
-
-```txt
-lib
-├─ forge-std — https://github.com/foundry-rs/forge-std
-├─ solmate — https://github.com/transmissions11/solmate
-scripts
-├─ Deploy.s.sol — Example Contract Deployment Script
-src
-├─ Greeter — Example Contract
-test
-└─ Greeter.t — Example Contract Tests
+```solidity
+interface IGithubPFPFactory {
+    event NewGithubPFP(address indexed owner, address indexed githubPFP);
+    function createGithubPFP(string calldata baseURI, string calldata name, string calldata symbol) external returns (address);
+}
 ```
+
+Params:
+
+```solidity
+string memory baseURI = "https://github.com/zeroknots/gh-erc721/public/"; // point to your forked repo
+string memory name = "ZeroknotsPFP"; // change dis
+string memory symbol = "ZKPFP"; // change dis
+
+address githubPFP = factory.createGithubPFP(baseURI, name, symbol);
+GithubPFP(githubPFP).mint(alice, 10);
+```
+
+
 
 
 ### Notable Mentions

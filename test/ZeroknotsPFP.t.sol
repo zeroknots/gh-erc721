@@ -1,6 +1,7 @@
 import "forge-std/Test.sol";
 
 import "../src/GithubPFP.sol";
+import "../src/GithubPFPFactory.sol";
 
 
 
@@ -9,20 +10,26 @@ import "../src/GithubPFP.sol";
 contract ZeroknotsPFPTest is Test {
     address deployer = address(0x1001);
 
-    GithubPFP zkpfp;
+    GithubPFPFactory factory;
 
     function setUp() public {
-        string memory baseURI = "http://localhost:8080/";
 
         vm.broadcast(deployer);
-        zkpfp = new GithubPFP(baseURI, "ZeroknotsPFP", "ZKPFP");
+        factory = new GithubPFPFactory();
     }
 
     function testMint() public {
-        vm.startBroadcast(deployer);
-        zkpfp.mint(deployer, 1);
+        string memory baseURI = "https://github.com/zeroknots/pfp/public/";
+        string memory name = "ZeroknotsPFP";
+        string memory symbol = "ZKPFP";
 
-        console.log('URI %s', zkpfp.tokenURI(1));
+        address githubPFP = factory.createGithubPFP(baseURI, name, symbol);
+        GithubPFP(githubPFP).mint(deployer, 10);
+
+        assertEq(GithubPFP(githubPFP).balanceOf(deployer), 10);
+
+        console.log(GithubPFP(githubPFP).tokenURI(0));
+
 
     }
 }

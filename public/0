@@ -1,0 +1,12 @@
+{
+  "tokenID": 0,
+  "name": "change me",
+  "description": "change me",
+  "image": "https://github.com/zeroknots/gh-erc721/public/0.jpeg",
+  "attributes": [
+    {
+      "trait_type": "Foo",
+      "value": "Bar"
+    }
+  ]
+}
