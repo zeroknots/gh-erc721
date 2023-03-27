@@ -8,7 +8,7 @@ Mint ERC721 PFPs and host them on your GH
 
 **Factory**
 
-Factory deployed @ 0x000
+Owner-less Factory deployed @ 0x000
 
 call `createGithubPFP`
 
